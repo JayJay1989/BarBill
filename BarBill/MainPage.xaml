@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviors="clr-namespace:BarBill.Behaviors"
+             mc:Ignorable="d"
+             x:Class="BarBill.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="tbiResetAll"
+            Clicked="Reset"
+            Order="Primary"
+            Priority="0">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource 
+                    Glyph="🗑"
+                    Size="25">
+                </FontImageSource>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label VerticalOptions="Center" TextColor="#8664ff" FontSize="45" FontAttributes="Bold" FontFamily="CustomFont" Text="Totaal:" />
+            <Label VerticalOptions="Center" TextColor="#8664ff" FontSize="25" FontFamily="CustomFont" x:Name="lblTotal" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Frame>
+            <Frame.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#54ffff" Offset="0.1"/>
+                    <GradientStop Color="#8664ff" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+            <StackLayout>
+                <ListView x:Name="BeverageView" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="150" SeparatorVisibility="None" VerticalScrollBarVisibility="Never" SeparatorColor="Transparent" RowHeight="76"
+            ItemsSource="{Binding Beverages}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <AbsoluteLayout>
+                                        <Frame CornerRadius="15" Padding="0" BackgroundColor="#7757ff"
+                                    AbsoluteLayout.LayoutBounds="1, 0, 25, 25"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    IsVisible="{Binding AantalGeconsumeerdIsGroterDanNul}">
+                                            <Label Text="{Binding AantalGeconsumeerd}" TextColor="#59ffff" Margin="{Binding Margin}" FontAttributes="Bold" FontSize="{Binding FontSize}"/>
+                                        </Frame>
+                                        <Button Text="{Binding Icon}" BackgroundColor="Transparent" FontSize="44" Clicked="AddBeverage" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                                            <Button.Behaviors>
+                                                <behaviors:LongPressBehavior LongPressed="RemoveBeverage"/>
+                                            </Button.Behaviors>
+                                        </Button>
+                                    </AbsoluteLayout>
+                                </ViewCell.View>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+
+
+</ContentPage>
